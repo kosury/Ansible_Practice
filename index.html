@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KOSURI | Digital Excellence</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #030303;
+            --primary: #ffffff;
+            --accent: #0070f3; /* Vercel Blue */
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg);
+            color: var(--primary);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; }
+
+        /* Animated Background Orbs */
+        .orb {
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0, 112, 243, 0.15) 0%, transparent 70%);
+            z-index: -1;
+            filter: blur(80px);
+            animation: move 20s infinite alternate;
+        }
+
+        @keyframes move {
+            from { transform: translate(-10%, -10%); }
+            to { transform: translate(20%, 20%); }
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 30px 10%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo { font-size: 1.5rem; font-weight: 700; letter-spacing: -1px; }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 10%;
+        }
+
+        .hero h1 {
+            font-size: clamp(3.5rem, 10vw, 7rem);
+            line-height: 0.9;
+            margin-bottom: 20px;
+            font-weight: 700;
+            letter-spacing: -4px;
+            background: linear-gradient(180deg, #fff 0%, #888 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #888;
+            max-width: 600px;
+            margin-bottom: 40px;
+            font-weight: 400;
+        }
+
+        .btn {
+            padding: 15px 35px;
+            background: var(--primary);
+            color: var(--bg);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+            border: 1px solid var(--primary);
+        }
+
+        .btn:hover {
+            background: transparent;
+            color: var(--primary);
+            box-shadow: 0 0 30px rgba(255,255,255,0.2);
+        }
+
+        /* Features Section */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 100px 10%;
+        }
+
+        .card {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            padding: 50px;
+            border-radius: 20px;
+            transition: 0.5s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.05), transparent);
+            transform: translateX(-100%);
+            transition: 0.5s;
+        }
+
+        .card:hover::before { transform: translateX(100%); }
+
+        .card:hover {
+            border-color: rgba(255,255,255,0.3);
+            transform: translateY(-10px);
+        }
+
+        .card h3 { font-size: 1.8rem; margin-bottom: 15px; }
+        .card p { color: #666; font-size: 1rem; }
+
+        footer {
+            text-align: center;
+            padding: 100px 10% 50px;
+            color: #444;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 4rem; letter-spacing: -2px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="orb"></div>
+    <div class="orb" style="right: 0; animation-delay: -5s; background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%);"></div>
+
+    <nav>
+        <div class="logo">KOSURI.</div>
+        <div style="font-size: 0.8rem; opacity: 0.5;">AVAIL FOR PROJECTS 2026</div>
+    </nav>
+
+    <section class="hero">
+        <h1>BEYOND<br>LIMITS.</h1>
+        <p>Architecting resilient infrastructures and seamless digital experiences. We turn complex cloud problems into elegant automated solutions.</p>
+        <a href="mailto:contact@kosuri.info" class="btn">Connect with Us</a>
+    </section>
+
+    <section class="features">
+        <div class="card">
+            <h3>Automate</h3>
+            <p>End-to-end CI/CD pipelines that scale with your growth. Zero manual intervention, maximum velocity.</p>
+        </div>
+        <div class="card">
+            <h3>Architect</h3>
+            <p>AWS infrastructure designed for 99.99% uptime. Security-first, cost-optimized, and future-proof.</p>
+        </div>
+        <div class="card">
+            <h3>Accelerate</h3>
+            <p>Optimizing every millisecond. From edge caching to database tuning, we make your tech fly.</p>
+        </div>
+    </section>
+
+    <footer>
+        &copy; 2026 KOSURI DIGITAL &bull; DESIGNED FOR THE FUTURE
+    </footer>
+
+</body>
+</html>
