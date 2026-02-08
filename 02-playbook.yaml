@@ -1,7 +1,7 @@
 - name: trying to write somethin on console
-  hosts: localhost
+  hosts: local
 
   tasks:
-    name: writing debug
+  - name: writing debug
     ansible.builtin.debug:
     msg: "hello this is {{name}}!!"
