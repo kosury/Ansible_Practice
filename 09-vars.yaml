@@ -1,0 +1,13 @@
+# ansible-playbook -i inventory.ini 09-vars.yaml -e "NAME=Madhu"
+
+- name: variables from args
+  hosts: local
+  connection: local
+  vars: 
+    NAME: "Kosuri"
+  tasks:
+  - name: print variables from args or command line
+    vars: 
+      NAME: "BABU"
+    ansible.builtin.debug:
+      msg: "Hi {{ NAME }}, Good Morning"

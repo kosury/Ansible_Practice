@@ -1,0 +1,27 @@
+- name: demo on data types
+  hosts: local
+  connection: local
+  vars:
+    PROGRAM: "DevSecOps with AWS"
+    DURATION: 140
+    IS_LIVE: true
+    DETAILS: # map/dictionary {}
+      MONTHS: 4
+      TRAINER: "SIVA"
+    TOPICS:
+    - Linux
+    - Shell
+    - ansible
+  tasks:
+  - name: print all the variables
+    ansible.builtin.debug:
+      msg: |
+        Program: {{ PROGRAM }}
+        Duration: {{ DURATION }}
+        Is Live?: {{ IS_LIVE }}
+        Details: {{ DETAILS }}
+        Topics: {{ TOPICS }}
+
+
+#ANSIBLE_STDOUT_CALLBACK=debug ansible-playbook -i inventory.ini 11-data-types.yaml
+#ansible-playbook -i inventory.ini 11-data-types.yaml
