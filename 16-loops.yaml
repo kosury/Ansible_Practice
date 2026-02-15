@@ -1,0 +1,40 @@
+- name: demo on loops
+  hosts: local
+  connection: local
+
+  vars:
+    user_names:
+      - ramesh
+      - raghu
+      - mad
+  
+  tasks:
+  - name: TASK LEVEL ->print the list
+    vars:
+      staff_members:
+      - staff1
+      - staff2
+      - staff3
+    ansible.builtin.debug:
+      msg: "list of items {{item}}"
+    loop: "{{staff_members}}"
+  
+  
+  - name:   PLAY level -> print the list
+    ansible.builtin.debug:
+      msg: " from the list - {{ item}}"
+    loop: "{{user_names}}"
+  
+  - name: print names from list-> adoc
+    ansible.builtin.debug:
+      msg: "iterating a list : {{ item }}"
+    loop: 
+    - madhu
+    - babu
+    - kosuri
+  
+  - name: define a list 
+    ansible.builtin.debug:
+    
+
+  
