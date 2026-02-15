@@ -1,0 +1,27 @@
+- name: ansible command vs Shell module
+  hosts: local
+  connection: local
+  tasks:
+  - name: command module test
+    #ansible.builtin.command: cat course.yaml | grep -i ansible
+    #output is [ERROR]: Task failed: Module failed: non-zero return code
+    #ansible.builtin.shell: cat course.yaml  | grep -i ansible
+    ansible.builtin.shell: cat /etc/passwd  | grep -i root
+    register: users_output
+
+  - name: print output
+    ansible.builtin.debug:
+      msg: "{{ users_output }}"
+
+  - name: print the only result instead of complete details
+    ansible.builtin.debug:
+      msg: "{{ users_output.stdout}} "
+  
+  - name: command module test
+    #ansible.builtin.command: cat course.yaml | grep -i ansible
+    ansible.builtin.shell: ls -ltr > files.txt
+    register: files_output
+
+  - name: print output of files
+    ansible.builtin.debug:
+      msg: "{{ files_output }}"
