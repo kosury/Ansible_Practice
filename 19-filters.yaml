@@ -1,0 +1,79 @@
+- name: demo on filters
+  hosts: local
+  connection: local
+  vars:
+    topics: linix, shell, ansible, terraform
+    course: "DevOps with Ansible"
+    myIP: "266.23.89.123"
+    tagMap: 
+      name: ansible
+      project: roboshop
+      component: catalogue
+    tagsList: [
+        {
+           "key": "name",
+           "value": "ansible"
+        },
+        {
+           "key": "project",
+           "value": "roboshop"
+        },
+        {
+            "key": "component",
+            "value": "catalogue"
+        }
+    ]
+  tasks:
+  - name: greeting
+    ansible.builtin.debug:
+      msg: "Hi Madhubabu, {{ GREETING | default('Good Morning') }}"
+
+  - name: Convert string to list
+    ansible.builtin.debug:
+      msg: "{{ topics | split(',') }}"
+
+  - name: convert map to list
+    ansible.builtin.debug:
+      msg: "{{ tagMap | dict2items }}"
+  - name: convert list to map
+    ansible.builtin.debug:
+      msg: "{{ tagsList | items2dict}}"
+  
+  - name: read students yaml
+    ansible.builtin.set_fact: #setting the variable
+      student_yaml: "{{ lookup('file', 'course.yaml' ) | from_yaml }}"
+    # - name: read students yaml — Labels the task for clarity
+
+    #ansible.builtin.set_fact — Module that creates/registers variables in Ansible
+
+    #student_yaml: — The variable name being created
+
+    #lookup('file', 'course.yaml') — Reads the entire contents of course.yaml as a string
+
+    #| from_yaml — A Jinja2 filter that converts the YAML string into a Python dictionary/data structure 
+
+  - name:  convert yaml to json
+    ansible.builtin.debug:
+      msg: "{{ student_yaml | to_nice_json }}"
+
+  - name: convert yaml to json and write to file
+    ansible.builtin.copy:
+      content: "{{ student_yaml | to_nice_json }}"
+      dest: "student.json"
+  
+  - name: convert to upper case
+    ansible.builtin.debug:
+      msg: "{{ course | upper }}"
+
+  - name: convert to lower case
+    ansible.builtin.debug:
+      msg: "{{ course | lower }}"
+  - name: check IP address is valid or not
+    ansible.builtin.debug:
+      msg: "{{ myIP | ansible.utils.ipv4 }}"
+  - name: split the string 
+    ansible.builtin.debug:
+      msg: "{{ myIP | split('.') }}"
+
+#ansible-playbook -i inventory.ini -e 'GREETING="Good Night"' 19-filters.yaml
+# we can provide the custom variable value using -e option while executing the playbook. if we dont provide the value for GREETING variable then it will take the default value "Good Morning" as defined in the playbook.

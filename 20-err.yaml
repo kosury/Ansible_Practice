@@ -1,0 +1,34 @@
+- name: demo on err handling
+  hosts: local
+  connection: local
+  become: yes
+  tasks:
+  - name: check the user is exists or not
+    ansible.builtin.command: id madhu
+    register: user_check
+    ignore_errors: true
+  - name: print the output
+    ansible.builtin.debug:
+      msg: "{{ user_check }}"
+  
+  - name: delete the user if exists
+    ansible.builtin.user:
+      name: madhu
+      state: absent
+    when: user_check.rc == 0
+
+  - name: print the output after deleting the user
+    ansible.builtin.debug:
+      msg: "{{ user_check }}"
+    
+
+  - name: create the user if not exists
+    ansible.builtin.user:
+      name: madhu
+      state: present
+    when: user_check.rc != 0
+
+  - name: print the output after creating the user
+    ansible.builtin.debug:
+      msg: "{{ user_check }}"
+  

@@ -1,0 +1,22 @@
+- name: check the idempotent
+  hosts: local
+  connection: local
+  become: yes
+  tasks:
+  - name: create a file
+    ansible.builtin.file:
+      path: /tmp/testfile.txt
+      state: touch
+  - name: print the file details
+    ansible.builtin.stat:
+      path: /tmp/testfile.txt
+    register: file_stat
+  - name: print the file details
+    ansible.builtin.debug:
+      msg: "{{ file_stat }}"
+  - name: print the file details
+    ansible.builtin.debug:
+      msg: "File is exists: '{{ file_stat.stat.exists }}', File is a regular file: {{ file_stat.stat.isreg }}, File is a directory: {{ file_stat.stat.isdir }}, File is a symbolic link: {{ file_stat.stat.islnk }}, File is a character device: {{ file_stat.stat.ischr }}, File is a block device: {{ file_stat.stat.isblk }}, File is a FIFO: {{ file_stat.stat.isfifo }}, File is a socket: {{ file_stat.stat.issock }}"
+
+
+#ansible-playbook -i inventory.ini -e {'path=/tmp'} 21-idempotent.yaml
